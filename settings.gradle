@@ -1,0 +1,13 @@
+rootProject.name = 'spring-cloud'
+include 'eureka'
+
+include 'eureka:eureka-core'
+findProject(':eureka:eureka-core')?.name = 'eureka-core'
+include 'eureka:eureka-client'
+findProject(':eureka:eureka-client')?.name = 'eureka-client'
+include 'eureka-interpretor'
+include 'eureka-interpretor:server'
+findProject(':eureka-interpretor:server')?.name = 'server'
+include 'eureka-interpretor:client'
+findProject(':eureka-interpretor:client')?.name = 'client'
+
