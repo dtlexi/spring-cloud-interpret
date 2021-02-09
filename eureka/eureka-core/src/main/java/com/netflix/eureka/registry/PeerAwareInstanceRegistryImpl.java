@@ -87,6 +87,7 @@ import static com.netflix.eureka.Names.METRIC_REGISTRY_PREFIX;
  * perceives this as a danger and stops expiring instances.
  * </p>
  *
+ * 这个类主要是负责eureka的集群同步
  * @author Karthik Ranganathan, Greg Kim
  *
  */
@@ -191,9 +192,13 @@ public class PeerAwareInstanceRegistryImpl extends AbstractInstanceRegistry impl
      *
      */
     private void scheduleRenewalThresholdUpdateTask() {
+        // 添加一个十五分钟的定时任务，计算阈值
+        // 为什么我们上下线的时候已经计算了阈值，这边还要计算？
+        // 因为正式环境下，上下线不是那么频繁，并且服务剔除是没有计算阈值
         timer.schedule(new TimerTask() {
                            @Override
                            public void run() {
+                               // 计算自我保护阈值
                                updateRenewalThreshold();
                            }
                        }, serverConfig.getRenewalThresholdUpdateIntervalMs(),
@@ -383,7 +388,9 @@ public class PeerAwareInstanceRegistryImpl extends AbstractInstanceRegistry impl
     @Override
     public boolean cancel(final String appName, final String id,
                           final boolean isReplication) {
+        // 服务下架
         if (super.cancel(appName, id, isReplication)) {
+            // 集群同步
             replicateToPeers(Action.Cancel, appName, id, null, null, isReplication);
 
             return true;
@@ -402,13 +409,39 @@ public class PeerAwareInstanceRegistryImpl extends AbstractInstanceRegistry impl
      *            true if this is a replication event from other replica nodes,
      *            false otherwise.
      */
+
+
+    /**
+     * 注册
+     * @param info
+     * @param isReplication
+     */
     @Override
     public void register(final InstanceInfo info, final boolean isReplication) {
+        // InstanceInfo：客户端信息
+        // isReplication：true:  表示当时来自服务端同步
+        //                false: 表示当前注册信息来自客户端
+
+
+
+
+        // 心跳续约的过期时间
+        // 多久没有做心跳续约，服务器将会剔除客户端
+        // 这边是默认的90秒
         int leaseDuration = Lease.DEFAULT_DURATION_IN_SECS;
+
+
+        // 客户自定义心跳续约时间
         if (info.getLeaseInfo() != null && info.getLeaseInfo().getDurationInSecs() > 0) {
+            // 自定义心跳续约时间
             leaseDuration = info.getLeaseInfo().getDurationInSecs();
         }
+
+        // 调用给父类注册方法
         super.register(info, leaseDuration, isReplication);
+
+        // 推送给其他eureka服务器
+        // 这边是一个责任链模式
         replicateToPeers(Action.Register, info.getAppName(), info.getId(), info, null, isReplication);
     }
 
@@ -419,7 +452,9 @@ public class PeerAwareInstanceRegistryImpl extends AbstractInstanceRegistry impl
      * java.lang.String, long, boolean)
      */
     public boolean renew(final String appName, final String id, final boolean isReplication) {
+        // 心跳续约
         if (super.renew(appName, id, isReplication)) {
+            // 集群同步
             replicateToPeers(Action.Heartbeat, appName, id, null, null, isReplication);
             return true;
         }
@@ -479,10 +514,22 @@ public class PeerAwareInstanceRegistryImpl extends AbstractInstanceRegistry impl
 
     @Override
     public boolean isLeaseExpirationEnabled() {
+        // 是否启用了自我保护机制
+        // 默认开启
+        // 我们可以在配置文件中关闭
         if (!isSelfPreservationModeEnabled()) {
             // The self preservation mode is disabled, hence allowing the instances to expire.
             return true;
         }
+        // numberOfRenewsPerMinThreshold：自我保护的阈值
+        //      这个值在四个地方计算：
+        //      1. 15分钟自动修改
+        //      2. 服务注册
+        //      3. 服务剔除，服务下架
+        //      4. 服务初始化
+        // getNumOfRenewsInLastMin() : 当前每分钟获取的心跳数量
+        // getNumOfRenewsInLastMin() > numberOfRenewsPerMinThreshold:
+        //      判断当前每分钟获取的心跳数量是否大于阈值
         return numberOfRenewsPerMinThreshold > 0 && getNumOfRenewsInLastMin() > numberOfRenewsPerMinThreshold;
     }
 
@@ -626,24 +673,37 @@ public class PeerAwareInstanceRegistryImpl extends AbstractInstanceRegistry impl
      * traffic to this node.
      *
      */
+
+    /**
+     * 集群同步
+     */
     private void replicateToPeers(Action action, String appName, String id,
                                   InstanceInfo info /* optional */,
                                   InstanceStatus newStatus /* optional */, boolean isReplication) {
+        // Action action : 当前进行什么集群操作，是注册，还是心跳续约，还是服务剔除
+        // boolean isReplication : 是否是来自集群同步，还是客户端操作，这个是用来区分集群同步还是客户端注册的
         Stopwatch tracer = action.getTimer().start();
         try {
             if (isReplication) {
                 numberOfReplicationsLastMin.increment();
             }
             // If it is a replication already, do not replicate again as this will create a poison replication
+
+            // 如果当前集群为空或者当前请求来自于其他集群同步
+            // 直接return
+            // 这样做防止无限同步
             if (peerEurekaNodes == Collections.EMPTY_LIST || isReplication) {
                 return;
             }
 
+            // 循环遍历当前集群中所有节点
             for (final PeerEurekaNode node : peerEurekaNodes.getPeerEurekaNodes()) {
                 // If the url represents this host, do not replicate to yourself.
+                // 排除当前自己
                 if (peerEurekaNodes.isThisMyUrl(node.getServiceUrl())) {
                     continue;
                 }
+                // 同步
                 replicateInstanceActionsToPeers(action, appName, id, info, newStatus, node);
             }
         } finally {
@@ -664,14 +724,18 @@ public class PeerAwareInstanceRegistryImpl extends AbstractInstanceRegistry impl
             CurrentRequestVersion.set(Version.V2);
             switch (action) {
                 case Cancel:
+                    // 剔除
                     node.cancel(appName, id);
                     break;
                 case Heartbeat:
+                    // 心跳续约同步
                     InstanceStatus overriddenStatus = overriddenInstanceStatusMap.get(id);
                     infoFromRegistry = getInstanceByAppAndId(appName, id, false);
                     node.heartbeat(appName, id, infoFromRegistry, overriddenStatus, false);
                     break;
                 case Register:
+                    // 注册同步
+                    // 底层是发送一个http请求给其他服务器的注册方法
                     node.register(info);
                     break;
                 case StatusUpdate:

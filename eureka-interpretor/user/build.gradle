@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+}
+
+group 'online.renjilin'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile project(":eureka:eureka-core")
+    compile project(":eureka:eureka-client")
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
+            {
+                exclude group: 'com.netflix.eureka', module: 'eureka-core'
+                exclude group: 'com.netflix.eureka', module: 'eureka-client'
+            }
+    // https://mvnrepository.com/artifact/com.alibaba/fastjson
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.47'
+}

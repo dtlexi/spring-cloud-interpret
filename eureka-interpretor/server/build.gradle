@@ -12,8 +12,10 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile project(":eureka:eureka-core")
+    compile project(":eureka:eureka-client")
     compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
             {
                 exclude group: 'com.netflix.eureka', module: 'eureka-core'
+                exclude group: 'com.netflix.eureka', module: 'eureka-client'
             }
 }

@@ -38,12 +38,20 @@ public class Lease<T> {
 
     public static final int DEFAULT_DURATION_IN_SECS = 90;
 
+    // 实例对象
     private T holder;
+    // 服务剔除时间
     private long evictionTimestamp;
+    // 服务注册时间
     private long registrationTimestamp;
+    // 最后一次正常工作时间？
+    // 恢复到正常工作的时间
     private long serviceUpTimestamp;
     // Make it volatile so that the expiration task would see this quicker
+    // 心跳续约到期时间
     private volatile long lastUpdateTimestamp;
+
+    // 心跳续约时间间隔
     private long duration;
 
     public Lease(T r, int durationInSecs) {
@@ -59,6 +67,8 @@ public class Lease<T> {
      * associated {@link T} during registration, otherwise default duration is
      * {@link #DEFAULT_DURATION_IN_SECS}.
      */
+
+    // 心跳续约
     public void renew() {
         lastUpdateTimestamp = System.currentTimeMillis() + duration;
 
@@ -67,6 +77,8 @@ public class Lease<T> {
     /**
      * Cancels the lease by updating the eviction time.
      */
+
+    // 服务剔除
     public void cancel() {
         if (evictionTimestamp <= 0) {
             evictionTimestamp = System.currentTimeMillis();
@@ -93,6 +105,7 @@ public class Lease<T> {
     /**
      * Checks if the lease of a given {@link com.netflix.appinfo.InstanceInfo} has expired or not.
      */
+
     public boolean isExpired() {
         return isExpired(0l);
     }
@@ -107,7 +120,20 @@ public class Lease<T> {
      *
      * @param additionalLeaseMs any additional lease time to add to the lease evaluation in ms.
      */
+
+    /**
+     * 判断是否过期
+     * @param additionalLeaseMs
+     * @return
+     */
     public boolean isExpired(long additionalLeaseMs) {
+        // evictionTimestamp 剔除时间> 0
+        //      表示当前微服务已过期
+        // System.currentTimeMillis() > (lastUpdateTimestamp + duration + additionalLeaseMs)
+        //      表示当前系统时间>服务过期时间，这段代码有点问题
+        //      lastUpdateTimestamp在服务续约是一件加上了duration,这边有加上了一次
+        //      应该是重复添加了
+        // additionalLeaseMs:集群同步带来的时间差
         return (evictionTimestamp > 0 || System.currentTimeMillis() > (lastUpdateTimestamp + duration + additionalLeaseMs));
     }
 

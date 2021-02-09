@@ -146,7 +146,7 @@ public class Applications {
      * @return the registered application for the given application
      *         name.
      */
-    public Application getRegisteredApplications(String appName) {
+    public Application  getRegisteredApplications(String appName) {
         return appNameApplicationMap.get(appName.toUpperCase(Locale.ROOT));
     }
 

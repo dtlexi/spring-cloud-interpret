@@ -102,13 +102,24 @@ public class InstanceResource {
      * @return response indicating whether the operation was a success or
      *         failure.
      */
+
+    /**
+     * 心跳续约方法
+     * @param isReplication
+     * @param overriddenStatus
+     * @param status
+     * @param lastDirtyTimestamp
+     * @return
+     */
     @PUT
     public Response renewLease(
             @HeaderParam(PeerEurekaNode.HEADER_REPLICATION) String isReplication,
             @QueryParam("overriddenstatus") String overriddenStatus,
             @QueryParam("status") String status,
             @QueryParam("lastDirtyTimestamp") String lastDirtyTimestamp) {
+        // 是否是同步来的
         boolean isFromReplicaNode = "true".equals(isReplication);
+        // 心跳续约
         boolean isSuccess = registry.renew(app.getName(), id, isFromReplicaNode);
 
         // Not found in the registry, immediately ask for a register
@@ -273,11 +284,15 @@ public class InstanceResource {
      *            replicated from other nodes.
      * @return response indicating whether the operation was a success or
      *         failure.
+     *
+     * 服务下架
      */
     @DELETE
     public Response cancelLease(
             @HeaderParam(PeerEurekaNode.HEADER_REPLICATION) String isReplication) {
         try {
+
+            // 调用服务下架方法
             boolean isSuccess = registry.cancel(app.getName(), id,
                 "true".equals(isReplication));
 

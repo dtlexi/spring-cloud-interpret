@@ -10,4 +10,7 @@ include 'eureka-interpretor:server'
 findProject(':eureka-interpretor:server')?.name = 'server'
 include 'eureka-interpretor:client'
 findProject(':eureka-interpretor:client')?.name = 'client'
+include 'ribbon'
+include 'eureka-interpretor:user'
+findProject(':eureka-interpretor:user')?.name = 'user'
 

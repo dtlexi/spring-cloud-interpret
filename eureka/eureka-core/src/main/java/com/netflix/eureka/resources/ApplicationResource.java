@@ -141,14 +141,18 @@ public class ApplicationResource {
      * @param isReplication
      *            a header parameter containing information whether this is
      *            replicated from other nodes.
+     *
+     *
+     * 服务注册方法
      */
     @POST
     @Consumes({"application/json", "application/xml"})
     public Response addInstance(InstanceInfo info,
                                 @HeaderParam(PeerEurekaNode.HEADER_REPLICATION) String isReplication) {
-        System.out.println("123");
+
         logger.debug("Registering instance {} (replication={})", info.getId(), isReplication);
         // validate that the instanceinfo contains all the necessary required fields
+        // 参数校验
         if (isBlank(info.getId())) {
             return Response.status(400).entity("Missing instanceId").build();
         } else if (isBlank(info.getHostName())) {
@@ -166,6 +170,10 @@ public class ApplicationResource {
         }
 
         // handle cases where clients may be registering with bad DataCenterInfo with missing data
+
+        // 判断参数来源
+        // 是否是数据中心云服务来的
+        // 这边不考虑
         DataCenterInfo dataCenterInfo = info.getDataCenterInfo();
         if (dataCenterInfo instanceof UniqueIdentifier) {
             String dataCenterInfoId = ((UniqueIdentifier) dataCenterInfo).getId();
@@ -186,6 +194,12 @@ public class ApplicationResource {
             }
         }
 
+        // 注册数据
+        // this.registry
+        // 如果是使用的spring cloud 这边的registry对象使用的是InstanceRegistry对象
+        // 如果是直接使用eureka，没有使用spring cloud，这边的registry对象的实际类型是PeerAwareInstanceRegistry
+        // 其中InstanceRegistry继承了PeerAwareInstanceRegistry,并且对PeerAwareInstanceRegistry功能实现了扩展
+        // 这是一种责任链设计模式
         registry.register(info, "true".equals(isReplication));
         return Response.status(204).build();  // 204 to be backwards compatible
     }

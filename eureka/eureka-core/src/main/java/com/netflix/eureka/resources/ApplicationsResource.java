@@ -112,6 +112,8 @@ public class ApplicationsResource {
      *
      * @return a response containing information about all {@link com.netflix.discovery.shared.Applications}
      *         from the {@link AbstractInstanceRegistry}.
+     *
+     * 服务发现
      */
     @GET
     public Response getContainers(@PathParam("version") String version,
@@ -191,6 +193,8 @@ public class ApplicationsResource {
      * @param uriInfo  the {@link java.net.URI} information of the request made.
      * @return response containing the delta information of the
      *         {@link AbstractInstanceRegistry}.
+     *
+     * 增量获取微服务
      */
     @Path("delta")
     @GET

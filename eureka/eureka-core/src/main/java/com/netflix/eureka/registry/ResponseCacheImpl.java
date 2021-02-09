@@ -127,9 +127,15 @@ public class ResponseCacheImpl implements ResponseCache {
         this.registry = registry;
 
         long responseCacheUpdateIntervalMs = serverConfig.getResponseCacheUpdateIntervalMs();
+
+        // 实例化读写缓存
         this.readWriteCacheMap =
-                CacheBuilder.newBuilder().initialCapacity(serverConfig.getInitialCapacityOfResponseCache())
+                CacheBuilder.newBuilder()
+                        // 实例化缓存大小，默认1000
+                        .initialCapacity(serverConfig.getInitialCapacityOfResponseCache())
+                        // 设置缓存过期，默认180秒
                         .expireAfterWrite(serverConfig.getResponseCacheAutoExpirationInSeconds(), TimeUnit.SECONDS)
+                        // 添加监听器
                         .removalListener(new RemovalListener<Key, Value>() {
                             @Override
                             public void onRemoval(RemovalNotification<Key, Value> notification) {
@@ -147,12 +153,18 @@ public class ResponseCacheImpl implements ResponseCache {
                                     Key cloneWithNoRegions = key.cloneWithoutRegions();
                                     regionSpecificKeys.put(cloneWithNoRegions, key);
                                 }
+                                // 获取真实数据
                                 Value value = generatePayload(key);
                                 return value;
                             }
                         });
 
+        // 初始化只读缓存
+        // 只读缓存数据，只来源于读写缓存，并且没有提供主动更新的API
+        // 只读缓存，只能通过定时任务更新，每30秒执行一次
+        // 或者读写缓存中获取不到，那么会添加到只读缓存
         if (shouldUseReadOnlyResponseCache) {
+            // 初始化一个定时器
             timer.schedule(getCacheUpdateTask(),
                     new Date(((System.currentTimeMillis() / responseCacheUpdateIntervalMs) * responseCacheUpdateIntervalMs)
                             + responseCacheUpdateIntervalMs),
@@ -171,12 +183,14 @@ public class ResponseCacheImpl implements ResponseCache {
             @Override
             public void run() {
                 logger.debug("Updating the client cache from response cache");
+                // 遍历只读缓存
                 for (Key key : readOnlyCacheMap.keySet()) {
                     if (logger.isDebugEnabled()) {
                         logger.debug("Updating the client cache from response cache for key : {} {} {} {}",
                                 key.getEntityType(), key.getName(), key.getVersion(), key.getType());
                     }
                     try {
+                        // 更新数据
                         CurrentRequestVersion.set(key.getVersion());
                         Value cacheValue = readWriteCacheMap.get(key);
                         Value currentCacheValue = readOnlyCacheMap.get(key);
@@ -251,6 +265,7 @@ public class ResponseCacheImpl implements ResponseCache {
     public void invalidate(String appName, @Nullable String vipAddress, @Nullable String secureVipAddress) {
         for (Key.KeyType type : Key.KeyType.values()) {
             for (Version v : Version.values()) {
+                // 更新读写缓存
                 invalidate(
                         new Key(Key.EntityType.Application, appName, type, v, EurekaAccept.full),
                         new Key(Key.EntityType.Application, appName, type, v, EurekaAccept.compact),
@@ -350,17 +365,27 @@ public class ResponseCacheImpl implements ResponseCache {
      */
     @VisibleForTesting
     Value getValue(final Key key, boolean useReadOnlyCache) {
+        // 获取数据
+        // 1. 实现从只读缓存中获取
+        // 2. 只读缓存中没有的话，进入读写缓存中获取
+        // 3. 读写缓存中没有，读写缓存注册了监听器，就执行读写缓存监听器，到真实数据中获取
+
         Value payload = null;
         try {
+            // 是否打开了只读缓存
             if (useReadOnlyCache) {
+                // 只读缓存中获取数据
                 final Value currentPayload = readOnlyCacheMap.get(key);
                 if (currentPayload != null) {
                     payload = currentPayload;
                 } else {
+                    // 读写缓存中获取
                     payload = readWriteCacheMap.get(key);
                     readOnlyCacheMap.put(key, payload);
                 }
             } else {
+                // 如果没有开启只读缓存
+                // 直接到读写缓存中获取
                 payload = readWriteCacheMap.get(key);
             }
         } catch (Throwable t) {
@@ -415,15 +440,21 @@ public class ResponseCacheImpl implements ResponseCache {
                 case Application:
                     boolean isRemoteRegionRequested = key.hasRegions();
 
+                    // 全量获取
                     if (ALL_APPS.equals(key.getName())) {
+                        // 云服务
                         if (isRemoteRegionRequested) {
                             tracer = serializeAllAppsWithRemoteRegionTimer.start();
                             payload = getPayLoad(key, registry.getApplicationsFromMultipleRegions(key.getRegions()));
                         } else {
                             tracer = serializeAllAppsTimer.start();
+                            // registry.getApplications() : 真实数据获取缓存
                             payload = getPayLoad(key, registry.getApplications());
                         }
-                    } else if (ALL_APPS_DELTA.equals(key.getName())) {
+                    }
+                    // 增量获取
+                    else if (ALL_APPS_DELTA.equals(key.getName())) {
+                        // 远程
                         if (isRemoteRegionRequested) {
                             tracer = serializeDeltaAppsWithRemoteRegionTimer.start();
                             versionDeltaWithRegions.incrementAndGet();

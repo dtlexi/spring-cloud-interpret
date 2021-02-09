@@ -21,15 +21,15 @@ com/netflix/discovery/converters/wrappers/CodecWrappers.java
  com.netflix.discovery.converters.wrappers.CodecWrappers$XStreamXml
 com/netflix/discovery/shared/dns/DnsService.java
  com.netflix.discovery.shared.dns.DnsService
-com/netflix/appinfo/HealthCheckResource.java
- com.netflix.appinfo.HealthCheckResource
- com.netflix.appinfo.HealthCheckResource$1
 com/netflix/discovery/shared/transport/decorator/MetricsCollectingEurekaHttpClient.java
  com.netflix.discovery.shared.transport.decorator.MetricsCollectingEurekaHttpClient
  com.netflix.discovery.shared.transport.decorator.MetricsCollectingEurekaHttpClient$1
  com.netflix.discovery.shared.transport.decorator.MetricsCollectingEurekaHttpClient$2
  com.netflix.discovery.shared.transport.decorator.MetricsCollectingEurekaHttpClient$EurekaHttpClientRequestMetrics
  com.netflix.discovery.shared.transport.decorator.MetricsCollectingEurekaHttpClient$EurekaHttpClientRequestMetrics$Status
+com/netflix/appinfo/HealthCheckResource.java
+ com.netflix.appinfo.HealthCheckResource
+ com.netflix.appinfo.HealthCheckResource$1
 com/netflix/discovery/util/StringUtil.java
  com.netflix.discovery.util.StringUtil
 com/netflix/discovery/shared/resolver/ReloadingClusterResolver.java
@@ -59,11 +59,11 @@ com/netflix/discovery/DiscoveryClient.java
 com/netflix/discovery/shared/transport/PropertyBasedTransportConfigConstants.java
  com.netflix.discovery.shared.transport.PropertyBasedTransportConfigConstants
  com.netflix.discovery.shared.transport.PropertyBasedTransportConfigConstants$Values
+com/netflix/discovery/endpoint/DnsResolver.java
+ com.netflix.discovery.endpoint.DnsResolver
 com/netflix/appinfo/CloudInstanceConfig.java
  com.netflix.appinfo.CloudInstanceConfig
  com.netflix.appinfo.CloudInstanceConfig$1
-com/netflix/discovery/endpoint/DnsResolver.java
- com.netflix.discovery.endpoint.DnsResolver
 com/netflix/discovery/converters/jackson/serializer/InstanceInfoXmlBeanSerializer.java
  com.netflix.discovery.converters.jackson.serializer.InstanceInfoXmlBeanSerializer
 com/netflix/appinfo/AbstractEurekaIdentity.java
@@ -98,10 +98,10 @@ com/netflix/discovery/shared/resolver/DefaultEndpoint.java
 com/netflix/discovery/shared/transport/decorator/RetryableEurekaHttpClient.java
  com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient
  com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient$1
-com/netflix/appinfo/providers/VipAddressResolver.java
- com.netflix.appinfo.providers.VipAddressResolver
 com/netflix/discovery/converters/jackson/serializer/PortWrapperXmlDeserializer.java
  com.netflix.discovery.converters.jackson.serializer.PortWrapperXmlDeserializer
+com/netflix/appinfo/providers/VipAddressResolver.java
+ com.netflix.appinfo.providers.VipAddressResolver
 com/netflix/discovery/PropertyBasedClientConfigConstants.java
  com.netflix.discovery.PropertyBasedClientConfigConstants
  com.netflix.discovery.PropertyBasedClientConfigConstants$Values
@@ -130,10 +130,10 @@ com/netflix/appinfo/EurekaClientIdentity.java
  com.netflix.appinfo.EurekaClientIdentity
 com/netflix/discovery/converters/wrappers/DecoderWrapper.java
  com.netflix.discovery.converters.wrappers.DecoderWrapper
-com/netflix/discovery/shared/resolver/aws/AwsEndpoint.java
- com.netflix.discovery.shared.resolver.aws.AwsEndpoint
 com/netflix/discovery/util/EurekaUtils.java
  com.netflix.discovery.util.EurekaUtils
+com/netflix/discovery/shared/resolver/aws/AwsEndpoint.java
+ com.netflix.discovery.shared.resolver.aws.AwsEndpoint
 com/netflix/discovery/shared/transport/EurekaHttpClientFactory.java
  com.netflix.discovery.shared.transport.EurekaHttpClientFactory
 com/netflix/discovery/DefaultEurekaClientConfig.java
@@ -192,21 +192,21 @@ com/netflix/discovery/shared/transport/decorator/SessionedEurekaHttpClient.java
  com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient
 com/netflix/discovery/shared/transport/jersey/Jersey1DiscoveryClientOptionalArgs.java
  com.netflix.discovery.shared.transport.jersey.Jersey1DiscoveryClientOptionalArgs
-com/netflix/appinfo/providers/EurekaConfigBasedInstanceInfoProvider.java
- com.netflix.appinfo.providers.EurekaConfigBasedInstanceInfoProvider
 com/netflix/discovery/converters/Auto.java
  com.netflix.discovery.converters.Auto
+com/netflix/appinfo/providers/EurekaConfigBasedInstanceInfoProvider.java
+ com.netflix.appinfo.providers.EurekaConfigBasedInstanceInfoProvider
 com/netflix/appinfo/MyDataCenterInfo.java
  com.netflix.appinfo.MyDataCenterInfo
-com/netflix/discovery/converters/jackson/builder/ApplicationsXmlJacksonBuilder.java
- com.netflix.discovery.converters.jackson.builder.ApplicationsXmlJacksonBuilder
 com/netflix/discovery/internal/util/Archaius1Utils.java
  com.netflix.discovery.internal.util.Archaius1Utils
+com/netflix/discovery/converters/jackson/builder/ApplicationsXmlJacksonBuilder.java
+ com.netflix.discovery.converters.jackson.builder.ApplicationsXmlJacksonBuilder
+com/netflix/discovery/converters/jackson/serializer/ApplicationsXmlBeanSerializer.java
+ com.netflix.discovery.converters.jackson.serializer.ApplicationsXmlBeanSerializer
 com/netflix/appinfo/PropertyBasedAmazonInfoConfigConstants.java
  com.netflix.appinfo.PropertyBasedAmazonInfoConfigConstants
  com.netflix.appinfo.PropertyBasedAmazonInfoConfigConstants$Values
-com/netflix/discovery/converters/jackson/serializer/ApplicationsXmlBeanSerializer.java
- com.netflix.discovery.converters.jackson.serializer.ApplicationsXmlBeanSerializer
 com/netflix/discovery/NotImplementedRegistryImpl.java
  com.netflix.discovery.NotImplementedRegistryImpl
 com/netflix/discovery/converters/jackson/EurekaJacksonXmlModifiers.java
@@ -220,6 +220,8 @@ com/netflix/appinfo/LeaseInfo.java
  com.netflix.appinfo.LeaseInfo
  com.netflix.appinfo.LeaseInfo$1
  com.netflix.appinfo.LeaseInfo$Builder
+com/netflix/discovery/util/ServoUtil.java
+ com.netflix.discovery.util.ServoUtil
 com/netflix/discovery/util/EurekaEntityTransformers.java
  com.netflix.discovery.util.EurekaEntityTransformers
  com.netflix.discovery.util.EurekaEntityTransformers$1
@@ -228,8 +230,6 @@ com/netflix/discovery/util/EurekaEntityTransformers.java
  com.netflix.discovery.util.EurekaEntityTransformers$4
  com.netflix.discovery.util.EurekaEntityTransformers$5
  com.netflix.discovery.util.EurekaEntityTransformers$Transformer
-com/netflix/discovery/util/ServoUtil.java
- com.netflix.discovery.util.ServoUtil
 com/netflix/discovery/shared/resolver/aws/ApplicationsResolver.java
  com.netflix.discovery.shared.resolver.aws.ApplicationsResolver
  com.netflix.discovery.shared.resolver.aws.ApplicationsResolver$ApplicationsSource
@@ -305,11 +305,11 @@ com/netflix/discovery/converters/jackson/AbstractEurekaJacksonCodec.java
  com.netflix.discovery.converters.jackson.AbstractEurekaJacksonCodec
  com.netflix.discovery.converters.jackson.AbstractEurekaJacksonCodec$1
  com.netflix.discovery.converters.jackson.AbstractEurekaJacksonCodec$2
-com/netflix/discovery/shared/resolver/EndpointRandomizer.java
- com.netflix.discovery.shared.resolver.EndpointRandomizer
 com/netflix/discovery/InstanceInfoReplicator.java
  com.netflix.discovery.InstanceInfoReplicator
  com.netflix.discovery.InstanceInfoReplicator$1
+com/netflix/discovery/shared/resolver/EndpointRandomizer.java
+ com.netflix.discovery.shared.resolver.EndpointRandomizer
 com/netflix/discovery/shared/transport/jersey/JerseyEurekaHttpClientFactory.java
  com.netflix.discovery.shared.transport.jersey.JerseyEurekaHttpClientFactory
  com.netflix.discovery.shared.transport.jersey.JerseyEurekaHttpClientFactory$JerseyEurekaHttpClientFactoryBuilder
@@ -329,6 +329,8 @@ com/netflix/discovery/converters/wrappers/CodecWrapper.java
  com.netflix.discovery.converters.wrappers.CodecWrapper
 com/netflix/discovery/PreRegistrationHandler.java
  com.netflix.discovery.PreRegistrationHandler
+com/netflix/discovery/util/SystemUtil.java
+ com.netflix.discovery.util.SystemUtil
 com/netflix/discovery/converters/Converters.java
  com.netflix.discovery.converters.Converters
  com.netflix.discovery.converters.Converters$ApplicationConverter
@@ -338,8 +340,6 @@ com/netflix/discovery/converters/Converters.java
  com.netflix.discovery.converters.Converters$InstanceInfoConverter
  com.netflix.discovery.converters.Converters$LeaseInfoConverter
  com.netflix.discovery.converters.Converters$MetadataConverter
-com/netflix/discovery/util/SystemUtil.java
- com.netflix.discovery.util.SystemUtil
 com/netflix/discovery/shared/transport/jersey/EurekaJerseyClientImpl.java
  com.netflix.discovery.shared.transport.jersey.EurekaJerseyClientImpl
  com.netflix.discovery.shared.transport.jersey.EurekaJerseyClientImpl$EurekaJerseyClientBuilder
@@ -416,10 +416,10 @@ com/netflix/discovery/converters/wrappers/CodecWrapperBase.java
  com.netflix.discovery.converters.wrappers.CodecWrapperBase
 com/netflix/discovery/EurekaUpStatusResolver.java
  com.netflix.discovery.EurekaUpStatusResolver
-com/netflix/appinfo/Archaius1AmazonInfoConfig.java
- com.netflix.appinfo.Archaius1AmazonInfoConfig
 com/netflix/discovery/EurekaIdentityHeaderFilter.java
  com.netflix.discovery.EurekaIdentityHeaderFilter
+com/netflix/appinfo/Archaius1AmazonInfoConfig.java
+ com.netflix.appinfo.Archaius1AmazonInfoConfig
 com/netflix/discovery/BackupRegistry.java
  com.netflix.discovery.BackupRegistry
 com/netflix/discovery/shared/resolver/aws/EurekaHttpResolver.java
