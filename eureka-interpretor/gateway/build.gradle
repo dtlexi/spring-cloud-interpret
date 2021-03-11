@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+}
+
+group 'online.renjilin'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+    compile('org.springframework.cloud:spring-cloud-starter-gateway')
+            {
+                exclude group: 'org.springframework.cloud', module: 'spring-cloud-starter-web'
+            }
+    compile "org.springframework.boot:spring-boot-starter-data-redis-reactive"
+}

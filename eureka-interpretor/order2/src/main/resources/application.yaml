@@ -1,0 +1,11 @@
+server:
+  port: 10021
+spring:
+  application:
+    name: order-client
+eureka:
+  instance:
+    instance-id: order-client-2
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka

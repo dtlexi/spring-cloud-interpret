@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="1.8" />
+    <bytecodeTargetLevel target="1.7">
+      <module name="spring-cloud.commons.main" target="1.8" />
+      <module name="spring-cloud.commons.test" target="1.8" />
+      <module name="spring-cloud.gateway.main" target="1.8" />
+      <module name="spring-cloud.gateway.test" target="1.8" />
+      <module name="spring-cloud.spring-cloud-commons.main" target="1.8" />
+      <module name="spring-cloud.spring-cloud-commons.spring-cloud-commons.main" target="1.8" />
+      <module name="spring-cloud.spring-cloud-commons.spring-cloud-commons.test" target="1.8" />
+      <module name="spring-cloud.spring-cloud-commons.test" target="1.8" />
+      <module name="spring-cloud.spring-cloud-openfeign.main" target="1.8" />
+      <module name="spring-cloud.spring-cloud-openfeign.test" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

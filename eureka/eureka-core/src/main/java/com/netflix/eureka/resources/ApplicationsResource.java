@@ -29,7 +29,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 
 import com.netflix.appinfo.EurekaAccept;
 import com.netflix.eureka.EurekaServerContext;
@@ -147,18 +149,36 @@ public class ApplicationsResource {
             returnMediaType = MediaType.APPLICATION_XML;
         }
 
+        // 封装key
+        // 这个key重写了hashcode方法
         Key cacheKey = new Key(Key.EntityType.Application,
                 ResponseCacheImpl.ALL_APPS,
                 keyType, CurrentRequestVersion.get(), EurekaAccept.fromString(eurekaAccept), regions
         );
 
+
+
+
+        System.out.println("-----------get containers start-------------");
+        Date time=new Date();
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(simpleDateFormat.format(time));
+        System.out.println(cacheKey);
+        System.out.println("-----------get containers end---------------");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+
+
         Response response;
         if (acceptEncoding != null && acceptEncoding.contains(HEADER_GZIP_VALUE)) {
+            // 压缩
             response = Response.ok(responseCache.getGZIP(cacheKey))
                     .header(HEADER_CONTENT_ENCODING, HEADER_GZIP_VALUE)
                     .header(HEADER_CONTENT_TYPE, returnMediaType)
                     .build();
         } else {
+            // 直接获取
             response = Response.ok(responseCache.get(cacheKey))
                     .build();
         }
@@ -205,6 +225,7 @@ public class ApplicationsResource {
             @HeaderParam(EurekaAccept.HTTP_X_EUREKA_ACCEPT) String eurekaAccept,
             @Context UriInfo uriInfo, @Nullable @QueryParam("regions") String regionsStr) {
 
+
         boolean isRemoteRegionRequested = null != regionsStr && !regionsStr.isEmpty();
 
         // If the delta flag is disabled in discovery or if the lease expiration
@@ -230,19 +251,33 @@ public class ApplicationsResource {
             returnMediaType = MediaType.APPLICATION_XML;
         }
 
+        // 封装key
+        // 这个key重写了hashcode方法
         Key cacheKey = new Key(Key.EntityType.Application,
                 ResponseCacheImpl.ALL_APPS_DELTA,
                 keyType, CurrentRequestVersion.get(), EurekaAccept.fromString(eurekaAccept), regions
         );
 
+        System.out.println("-----------get containers differential start-------------");
+        Date time=new Date();
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(simpleDateFormat.format(time));
+        System.out.println(cacheKey);
+        System.out.println("-----------get containers differential end---------------");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+
         final Response response;
 
         if (acceptEncoding != null && acceptEncoding.contains(HEADER_GZIP_VALUE)) {
+            // 压缩
              response = Response.ok(responseCache.getGZIP(cacheKey))
                     .header(HEADER_CONTENT_ENCODING, HEADER_GZIP_VALUE)
                     .header(HEADER_CONTENT_TYPE, returnMediaType)
                     .build();
         } else {
+            // 直接获取
             response = Response.ok(responseCache.get(cacheKey)).build();
         }
 

@@ -19,6 +19,7 @@ package com.netflix.eureka.registry;
 import javax.annotation.Nullable;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -149,6 +150,18 @@ public class ResponseCacheImpl implements ResponseCache {
                         .build(new CacheLoader<Key, Value>() {
                             @Override
                             public Value load(Key key) throws Exception {
+
+                                System.out.println("-----------load data start-------------");
+                                Date time=new Date();
+                                SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                System.out.println(simpleDateFormat.format(time));
+                                System.out.println(key);
+                                System.out.println("-----------load data end---------------");
+                                System.out.println("");
+                                System.out.println("");
+                                System.out.println("");
+
+
                                 if (key.hasRegions()) {
                                     Key cloneWithNoRegions = key.cloneWithoutRegions();
                                     regionSpecificKeys.put(cloneWithNoRegions, key);
@@ -195,6 +208,7 @@ public class ResponseCacheImpl implements ResponseCache {
                         Value cacheValue = readWriteCacheMap.get(key);
                         Value currentCacheValue = readOnlyCacheMap.get(key);
                         if (cacheValue != currentCacheValue) {
+                            // 将读写缓存更新到只读缓存
                             readOnlyCacheMap.put(key, cacheValue);
                         }
                     } catch (Throwable th) {
@@ -225,6 +239,7 @@ public class ResponseCacheImpl implements ResponseCache {
 
     @VisibleForTesting
     String get(final Key key, boolean useReadOnlyCache) {
+        // 缓存获取
         Value payload = getValue(key, useReadOnlyCache);
         if (payload == null || payload.getPayload().equals(EMPTY_PAYLOAD)) {
             return null;
@@ -391,6 +406,7 @@ public class ResponseCacheImpl implements ResponseCache {
         } catch (Throwable t) {
             logger.error("Cannot get value for key : {}", key, t);
         }
+
         return payload;
     }
 
@@ -462,6 +478,7 @@ public class ResponseCacheImpl implements ResponseCache {
                             payload = getPayLoad(key,
                                     registry.getApplicationDeltasFromMultipleRegions(key.getRegions()));
                         } else {
+                            // 增量获取数据
                             tracer = serializeDeltaAppsTimer.start();
                             versionDelta.incrementAndGet();
                             versionDeltaLegacy.incrementAndGet();

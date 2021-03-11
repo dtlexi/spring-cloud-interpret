@@ -11,14 +11,35 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/commons" />
+            <option value="$PROJECT_DIR$/commons/spring-cloud-commons" />
             <option value="$PROJECT_DIR$/eureka" />
             <option value="$PROJECT_DIR$/eureka-interpretor" />
             <option value="$PROJECT_DIR$/eureka-interpretor/client" />
+            <option value="$PROJECT_DIR$/eureka-interpretor/gateway" />
+            <option value="$PROJECT_DIR$/eureka-interpretor/order" />
+            <option value="$PROJECT_DIR$/eureka-interpretor/order2" />
             <option value="$PROJECT_DIR$/eureka-interpretor/server" />
+            <option value="$PROJECT_DIR$/eureka-interpretor/server1" />
+            <option value="$PROJECT_DIR$/eureka-interpretor/spring-test" />
             <option value="$PROJECT_DIR$/eureka-interpretor/user" />
+            <option value="$PROJECT_DIR$/eureka-interpretor/user2" />
             <option value="$PROJECT_DIR$/eureka/eureka-client" />
             <option value="$PROJECT_DIR$/eureka/eureka-core" />
             <option value="$PROJECT_DIR$/ribbon" />
+            <option value="$PROJECT_DIR$/ribbon/ribbon" />
+            <option value="$PROJECT_DIR$/ribbon/ribbon-core" />
+            <option value="$PROJECT_DIR$/ribbon/ribbon-eureka" />
+            <option value="$PROJECT_DIR$/ribbon/ribbon-httpclient" />
+            <option value="$PROJECT_DIR$/ribbon/ribbon-loadbalancer" />
+            <option value="$PROJECT_DIR$/ribbon/ribbon-test" />
+            <option value="$PROJECT_DIR$/ribbon/ribbon-transport" />
+            <option value="$PROJECT_DIR$/spring-cloud-netflix" />
+            <option value="$PROJECT_DIR$/spring-cloud-netflix/spring-cloud-netflix-ribbon" />
+            <option value="$PROJECT_DIR$/spring-cloud-openfeign" />
+            <option value="$PROJECT_DIR$/spring-cloud-openfeign/spring-cloud-openfeign-core" />
+            <option value="$PROJECT_DIR$/spring-cloud-openfeign/spring-cloud-openfeign-dependencies" />
+            <option value="$PROJECT_DIR$/spring-cloud-openfeign/spring-cloud-starter-openfeign" />
           </set>
         </option>
       </GradleProjectSettings>

@@ -1024,6 +1024,9 @@ public class DiscoveryClient implements EurekaClient {
         //      增量拉取：把Eureka最近(三分钟)注册的信息拉取下来
         // 这个方法有俩个地方调用，第一个是客户端初始化，第二个是定时任务刷新
 
+        System.out.println("拉取服务");
+
+
         Stopwatch tracer = FETCH_REGISTRY_TIMER.start();
 
         try {

@@ -232,7 +232,14 @@ public class Applications {
     @JsonIgnore
     public String getReconcileHashCode() {
         TreeMap<String, AtomicInteger> instanceCountMap = new TreeMap<String, AtomicInteger>();
+        // 根据状态分组，并且将状态，数量添加到集合中
+        // "UP"->10
+        // "DOWN"->2
+        // ...
         populateInstanceCountMap(instanceCountMap);
+        // 拼接字符串
+        // "UP_10_DOWN_2_"
+        // 计算字符串的hash_code
         return getReconcileHashCode(instanceCountMap);
     }
 

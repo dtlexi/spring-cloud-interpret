@@ -1,4 +1,12 @@
 online/renjilin/ClientApplication.java
  online.renjilin.ClientApplication
+online/renjilin/client/OrderClient.java
+ online.renjilin.client.OrderClient
+online/renjilin/config/UserRuleConfig.java
+ online.renjilin.config.UserRuleConfig
+online/renjilin/client/UserClient.java
+ online.renjilin.client.UserClient
+online/renjilin/config/OrderRuleConfig.java
+ online.renjilin.config.OrderRuleConfig
 online/renjilin/controller/TestController.java
  online.renjilin.controller.TestController

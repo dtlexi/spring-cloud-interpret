@@ -1,0 +1,50 @@
+com/netflix/client/http/HttpRequest.java
+ com.netflix.client.http.HttpRequest
+ com.netflix.client.http.HttpRequest$Builder
+ com.netflix.client.http.HttpRequest$Verb
+com/netflix/http4/ssl/KeyStoreAwareSocketFactory.java
+ com.netflix.http4.ssl.KeyStoreAwareSocketFactory
+com/netflix/niws/client/http/HttpClientRequest.java
+ com.netflix.niws.client.http.HttpClientRequest
+ com.netflix.niws.client.http.HttpClientRequest$1
+ com.netflix.niws.client.http.HttpClientRequest$Builder
+ com.netflix.niws.client.http.HttpClientRequest$Verb
+com/netflix/client/http/CaseInsensitiveMultiMap.java
+ com.netflix.client.http.CaseInsensitiveMultiMap
+com/netflix/http4/NFHttpMethodRetryHandler.java
+ com.netflix.http4.NFHttpMethodRetryHandler
+com/netflix/http4/NFHttpClientConstants.java
+ com.netflix.http4.NFHttpClientConstants
+com/netflix/niws/client/http/HttpPrimeConnection.java
+ com.netflix.niws.client.http.HttpPrimeConnection
+com/netflix/niws/client/http/HttpClientLoadBalancerErrorHandler.java
+ com.netflix.niws.client.http.HttpClientLoadBalancerErrorHandler
+com/netflix/client/http/HttpHeaders.java
+ com.netflix.client.http.HttpHeaders
+com/netflix/http4/NFHttpClient.java
+ com.netflix.http4.NFHttpClient
+ com.netflix.http4.NFHttpClient$1
+ com.netflix.http4.NFHttpClient$2
+com/netflix/niws/client/http/HttpClientResponse.java
+ com.netflix.niws.client.http.HttpClientResponse
+ com.netflix.niws.client.http.HttpClientResponse$1
+com/netflix/http4/ssl/AcceptAllSocketFactory.java
+ com.netflix.http4.ssl.AcceptAllSocketFactory
+ com.netflix.http4.ssl.AcceptAllSocketFactory$1
+com/netflix/http4/MonitoredConnectionManager.java
+ com.netflix.http4.MonitoredConnectionManager
+com/netflix/http4/ConnectionPoolCleaner.java
+ com.netflix.http4.ConnectionPoolCleaner
+ com.netflix.http4.ConnectionPoolCleaner$1
+com/netflix/niws/client/http/RestClient.java
+ com.netflix.niws.client.http.RestClient
+ com.netflix.niws.client.http.RestClient$1
+ com.netflix.niws.client.http.RestClient$2
+com/netflix/loadbalancer/PingUrl.java
+ com.netflix.loadbalancer.PingUrl
+com/netflix/client/http/HttpResponse.java
+ com.netflix.client.http.HttpResponse
+com/netflix/http4/NFHttpClientFactory.java
+ com.netflix.http4.NFHttpClientFactory
+com/netflix/http4/NamedConnectionPool.java
+ com.netflix.http4.NamedConnectionPool

@@ -424,7 +424,6 @@ public class PeerAwareInstanceRegistryImpl extends AbstractInstanceRegistry impl
 
 
 
-
         // 心跳续约的过期时间
         // 多久没有做心跳续约，服务器将会剔除客户端
         // 这边是默认的90秒
@@ -682,6 +681,8 @@ public class PeerAwareInstanceRegistryImpl extends AbstractInstanceRegistry impl
                                   InstanceStatus newStatus /* optional */, boolean isReplication) {
         // Action action : 当前进行什么集群操作，是注册，还是心跳续约，还是服务剔除
         // boolean isReplication : 是否是来自集群同步，还是客户端操作，这个是用来区分集群同步还是客户端注册的
+
+
         Stopwatch tracer = action.getTimer().start();
         try {
             if (isReplication) {

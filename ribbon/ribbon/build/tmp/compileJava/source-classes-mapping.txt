@@ -1,0 +1,140 @@
+com/netflix/ribbon/proxy/ProxyAnnotationException.java
+ com.netflix.ribbon.proxy.ProxyAnnotationException
+com/netflix/ribbon/template/TemplateParser.java
+ com.netflix.ribbon.template.TemplateParser
+com/netflix/ribbon/proxy/RibbonDynamicProxy.java
+ com.netflix.ribbon.proxy.RibbonDynamicProxy
+ com.netflix.ribbon.proxy.RibbonDynamicProxy$ProxyLifecycleImpl
+com/netflix/ribbon/http/HttpMetaResponse.java
+ com.netflix.ribbon.http.HttpMetaResponse
+com/netflix/ribbon/proxy/annotation/ContentTransformerClass.java
+ com.netflix.ribbon.proxy.annotation.ContentTransformerClass
+com/netflix/ribbon/proxy/MethodTemplateExecutor.java
+ com.netflix.ribbon.proxy.MethodTemplateExecutor
+ com.netflix.ribbon.proxy.MethodTemplateExecutor$1
+ com.netflix.ribbon.proxy.MethodTemplateExecutor$2
+com/netflix/ribbon/proxy/processor/HystrixAnnotationProcessor.java
+ com.netflix.ribbon.proxy.processor.HystrixAnnotationProcessor
+com/netflix/ribbon/proxy/annotation/Var.java
+ com.netflix.ribbon.proxy.annotation.Var
+com/netflix/ribbon/http/HttpRequestTemplate.java
+ com.netflix.ribbon.http.HttpRequestTemplate
+ com.netflix.ribbon.http.HttpRequestTemplate$Builder
+ com.netflix.ribbon.http.HttpRequestTemplate$CacheProviderWithKeyTemplate
+com/netflix/ribbon/proxy/ProxyLifeCycle.java
+ com.netflix.ribbon.proxy.ProxyLifeCycle
+com/netflix/ribbon/http/HttpResponseValidator.java
+ com.netflix.ribbon.http.HttpResponseValidator
+com/netflix/ribbon/DefaultResourceFactory.java
+ com.netflix.ribbon.DefaultResourceFactory
+com/netflix/ribbon/proxy/annotation/Content.java
+ com.netflix.ribbon.proxy.annotation.Content
+com/netflix/ribbon/proxy/annotation/TemplateName.java
+ com.netflix.ribbon.proxy.annotation.TemplateName
+com/netflix/ribbon/hystrix/HystrixObservableCommandChain.java
+ com.netflix.ribbon.hystrix.HystrixObservableCommandChain
+ com.netflix.ribbon.hystrix.HystrixObservableCommandChain$1
+com/netflix/ribbon/RibbonResourceFactory.java
+ com.netflix.ribbon.RibbonResourceFactory
+com/netflix/ribbon/template/ParsedTemplate.java
+ com.netflix.ribbon.template.ParsedTemplate
+com/netflix/ribbon/http/HttpMetaRequest.java
+ com.netflix.ribbon.http.HttpMetaRequest
+ com.netflix.ribbon.http.HttpMetaRequest$1
+ com.netflix.ribbon.http.HttpMetaRequest$2
+ com.netflix.ribbon.http.HttpMetaRequest$3
+ com.netflix.ribbon.http.HttpMetaRequest$3$1
+ com.netflix.ribbon.http.HttpMetaRequest$ResponseWithSubject
+com/netflix/ribbon/proxy/ClassTemplate.java
+ com.netflix.ribbon.proxy.ClassTemplate
+com/netflix/ribbon/CacheProviderFactory.java
+ com.netflix.ribbon.CacheProviderFactory
+com/netflix/ribbon/proxy/processor/CacheProviderAnnotationProcessor.java
+ com.netflix.ribbon.proxy.processor.CacheProviderAnnotationProcessor
+com/netflix/ribbon/RequestWithMetaData.java
+ com.netflix.ribbon.RequestWithMetaData
+com/netflix/ribbon/hystrix/CacheObservableCommand.java
+ com.netflix.ribbon.hystrix.CacheObservableCommand
+com/netflix/ribbon/proxy/annotation/ClientProperties.java
+ com.netflix.ribbon.proxy.annotation.ClientProperties
+ com.netflix.ribbon.proxy.annotation.ClientProperties$Property
+com/netflix/ribbon/proxy/processor/AnnotationProcessor.java
+ com.netflix.ribbon.proxy.processor.AnnotationProcessor
+com/netflix/ribbon/proxy/annotation/Hystrix.java
+ com.netflix.ribbon.proxy.annotation.Hystrix
+com/netflix/ribbon/ResponseValidator.java
+ com.netflix.ribbon.ResponseValidator
+com/netflix/ribbon/template/PathVar.java
+ com.netflix.ribbon.template.PathVar
+com/netflix/ribbon/CacheProvider.java
+ com.netflix.ribbon.CacheProvider
+com/netflix/ribbon/proxy/MethodTemplate.java
+ com.netflix.ribbon.proxy.MethodTemplate
+ com.netflix.ribbon.proxy.MethodTemplate$1
+ com.netflix.ribbon.proxy.MethodTemplate$CacheProviderEntry
+ com.netflix.ribbon.proxy.MethodTemplate$MethodAnnotationValues
+com/netflix/ribbon/template/TemplateParsingException.java
+ com.netflix.ribbon.template.TemplateParsingException
+com/netflix/ribbon/proxy/processor/AnnotationProcessorsProvider.java
+ com.netflix.ribbon.proxy.processor.AnnotationProcessorsProvider
+ com.netflix.ribbon.proxy.processor.AnnotationProcessorsProvider$DefaultAnnotationProcessorsProvider
+com/netflix/ribbon/hystrix/FallbackHandler.java
+ com.netflix.ribbon.hystrix.FallbackHandler
+com/netflix/ribbon/ResourceGroup.java
+ com.netflix.ribbon.ResourceGroup
+ com.netflix.ribbon.ResourceGroup$GroupBuilder
+ com.netflix.ribbon.ResourceGroup$TemplateBuilder
+com/netflix/ribbon/proxy/RibbonProxyException.java
+ com.netflix.ribbon.proxy.RibbonProxyException
+com/netflix/ribbon/proxy/annotation/ResourceGroup.java
+ com.netflix.ribbon.proxy.annotation.ResourceGroup
+com/netflix/ribbon/proxy/annotation/Http.java
+ com.netflix.ribbon.proxy.annotation.Http
+ com.netflix.ribbon.proxy.annotation.Http$Header
+ com.netflix.ribbon.proxy.annotation.Http$HttpMethod
+com/netflix/ribbon/Ribbon.java
+ com.netflix.ribbon.Ribbon
+com/netflix/ribbon/http/HttpResourceGroup.java
+ com.netflix.ribbon.http.HttpResourceGroup
+ com.netflix.ribbon.http.HttpResourceGroup$Builder
+com/netflix/ribbon/http/HttpRequestBuilder.java
+ com.netflix.ribbon.http.HttpRequestBuilder
+ com.netflix.ribbon.http.HttpRequestBuilder$1
+com/netflix/ribbon/ServerError.java
+ com.netflix.ribbon.ServerError
+com/netflix/ribbon/proxy/Utils.java
+ com.netflix.ribbon.proxy.Utils
+com/netflix/ribbon/ClientOptions.java
+ com.netflix.ribbon.ClientOptions
+com/netflix/ribbon/proxy/processor/ClientPropertiesProcessor.java
+ com.netflix.ribbon.proxy.processor.ClientPropertiesProcessor
+com/netflix/ribbon/template/TemplateVar.java
+ com.netflix.ribbon.template.TemplateVar
+com/netflix/ribbon/http/HttpResourceObservableCommand.java
+ com.netflix.ribbon.http.HttpResourceObservableCommand
+ com.netflix.ribbon.http.HttpResourceObservableCommand$1
+ com.netflix.ribbon.http.HttpResourceObservableCommand$2
+ com.netflix.ribbon.http.HttpResourceObservableCommand$2$1
+com/netflix/ribbon/hystrix/ResultCommandPair.java
+ com.netflix.ribbon.hystrix.ResultCommandPair
+com/netflix/ribbon/template/MatrixVar.java
+ com.netflix.ribbon.template.MatrixVar
+com/netflix/ribbon/UnsuccessfulResponseException.java
+ com.netflix.ribbon.UnsuccessfulResponseException
+com/netflix/ribbon/RibbonRequest.java
+ com.netflix.ribbon.RibbonRequest
+com/netflix/ribbon/RequestTemplate.java
+ com.netflix.ribbon.RequestTemplate
+ com.netflix.ribbon.RequestTemplate$RequestBuilder
+com/netflix/ribbon/proxy/processor/HttpAnnotationProcessor.java
+ com.netflix.ribbon.proxy.processor.HttpAnnotationProcessor
+com/netflix/ribbon/proxy/annotation/CacheProvider.java
+ com.netflix.ribbon.proxy.annotation.CacheProvider
+com/netflix/ribbon/RibbonResponse.java
+ com.netflix.ribbon.RibbonResponse
+com/netflix/ribbon/http/HttpRequest.java
+ com.netflix.ribbon.http.HttpRequest
+ com.netflix.ribbon.http.HttpRequest$1
+ com.netflix.ribbon.http.HttpRequest$CacheProviderWithKey
+com/netflix/ribbon/proxy/ProxyHttpResourceGroupFactory.java
+ com.netflix.ribbon.proxy.ProxyHttpResourceGroupFactory

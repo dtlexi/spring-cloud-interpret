@@ -1,0 +1,36 @@
+group 'org.springframework.cloud'
+version '2.2.6.RELEASE'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+
+    compile project(":ribbon:ribbon")
+    compile project(":ribbon:ribbon-core")
+    compile project(":ribbon:ribbon-httpclient")
+    compile project(":ribbon:ribbon-loadbalancer")
+
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-autoconfigure')
+    compile('org.springframework.boot:spring-boot-configuration-processor')
+
+    compile project(":commons:spring-cloud-commons")
+
+    compile('org.springframework.cloud:spring-cloud-context')
+    compile('org.springframework.cloud:spring-cloud-netflix-archaius')
+//    compile('com.netflix.ribbon:ribbon')
+//    compile('com.netflix.ribbon:ribbon-core')
+//    compile('com.netflix.ribbon:ribbon-httpclient')
+//    compile('com.netflix.ribbon:ribbon-loadbalancer')
+    compile('com.sun.jersey.contribs:jersey-apache-client4:1.19.4')
+    compile('com.squareup.okhttp3:okhttp')
+    compile('org.springframework.retry:spring-retry')
+    compile('commons-configuration:commons-configuration:1.8')
+    compile('com.netflix.servo:servo-core')
+    compile('com.netflix.netflix-commons:netflix-commons-util')
+    compile('com.netflix.hystrix:hystrix-javanica')
+}

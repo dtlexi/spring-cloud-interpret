@@ -310,6 +310,7 @@ public abstract class AbstractInstanceRegistry implements InstanceRegistry {
             // 添加到最近更新队列
             recentlyChangedQueue.add(new RecentlyChangedItem(lease));
             registrant.setLastUpdatedTimestamp();
+            // 更新读写缓存
             invalidateCache(registrant.getAppName(), registrant.getVIPAddress(), registrant.getSecureVipAddress());
             logger.info("Registered instance {}/{} with status {} (replication={})",
                     registrant.getAppName(), registrant.getId(), registrant.getStatus(), isReplication);
@@ -446,10 +447,13 @@ public abstract class AbstractInstanceRegistry implements InstanceRegistry {
 
                 }
             }
-            // 计数，计算每分钟心跳数量
+            // 计数，
+            // 计算每分钟心跳数量
             // 后面自我保护判断用到到
+            // 里面维护了一个定时器，每分钟清0
             renewsLastMin.increment();
             // 调用服务续约方法
+            // 最近更新时间+心跳续约时间
             leaseToRenew.renew();
             return true;
         }
@@ -842,15 +846,18 @@ public abstract class AbstractInstanceRegistry implements InstanceRegistry {
         }
         Applications apps = new Applications();
         apps.setVersion(1L);
+        // 循环遍历当前组
         for (Entry<String, Map<String, Lease<InstanceInfo>>> entry : registry.entrySet()) {
             Application app = null;
 
             if (entry.getValue() != null) {
+                // 循环遍历微服务
                 for (Entry<String, Lease<InstanceInfo>> stringLeaseEntry : entry.getValue().entrySet()) {
                     Lease<InstanceInfo> lease = stringLeaseEntry.getValue();
                     if (app == null) {
                         app = new Application(lease.getHolder().getAppName());
                     }
+                    // 添加到集合中
                     app.addInstance(decorateInstanceInfo(lease));
                 }
             }
@@ -858,6 +865,7 @@ public abstract class AbstractInstanceRegistry implements InstanceRegistry {
                 apps.addApplication(app);
             }
         }
+        // 远程
         if (includeRemoteRegion) {
             for (String remoteRegion : remoteRegions) {
                 RemoteRegionRegistry remoteRegistry = regionNameVSRemoteRegistry.get(remoteRegion);
@@ -887,6 +895,7 @@ public abstract class AbstractInstanceRegistry implements InstanceRegistry {
                 }
             }
         }
+        // 设置hashcode
         apps.setAppsHashCode(apps.getReconcileHashCode());
         return apps;
     }
@@ -1018,6 +1027,11 @@ public abstract class AbstractInstanceRegistry implements InstanceRegistry {
             // 客户端会将本地缓存经过增量更新的HashCode和服务器全量HashCode比较，
             // 如果相等，表示本次增量更新成功，如果不相等，表示客户端存在脏数据
             // 那么客户端会重写进行全量拉取
+            //
+            // 算法如下：
+            // 计算各个状态的微服务数量，组成字符串
+            // "UP_5_DOWN_1_"
+            // 计算字符串的hashcode
             apps.setAppsHashCode(allApps.getReconcileHashCode());
             return apps;
         } finally {
@@ -1337,6 +1351,8 @@ public abstract class AbstractInstanceRegistry implements InstanceRegistry {
         }
         // 启动服务剔除线程
         // 这边是一个定时器
+        // 执行时间默认是60000ms
+        // 60s
         evictionTaskRef.set(new EvictionTask());
         evictionTimer.schedule(evictionTaskRef.get(),
                 serverConfig.getEvictionIntervalTimerInMs(),

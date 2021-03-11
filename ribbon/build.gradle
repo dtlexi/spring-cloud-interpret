@@ -1,14 +1,48 @@
-plugins {
-    id 'java'
+//plugins {
+//    id 'nebula.netflixoss' version '2.2.10'
+//}
+
+// Establish version and status
+ext.githubProjectName = 'ribbon' // Change if github project name is not the same as the root project's name
+
+subprojects {
+//    apply plugin: 'nebula.netflixoss'
+    apply plugin: 'java'
+
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+
+    group = "com.netflix.${githubProjectName}" // TEMPLATE: Set to organization of project
+
+    repositories {
+        jcenter()
+    }
+
+    if (project.hasProperty('useMavenLocal')) {
+        repositories {
+            mavenLocal()
+        }
+    }
+    if (project.getProperty('status').equals("snapshot")) {
+        repositories {
+            maven { url 'http://oss.jfrog.org/oss-snapshot-local' }
+        }
+    }
 }
 
-group 'online.renjilin'
-version '1.0-SNAPSHOT'
+allprojects {
+    ext {
+        rx_java_version= '1.0.9'
+        rx_netty_version='0.4.9'
+        servo_version='0.10.1'
+        hystrix_version='1.4.3'
+        guava_version='14.0.1'
+        archaius_version='0.7.6'
+        eureka_version='1.7.2'
+        jersey_version='1.19.1'
 
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+        junit_version='4.12'
+        powermock_version='1.6.2'
+        easymock_version='3.2'
+    }
 }

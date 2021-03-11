@@ -71,7 +71,6 @@ public class Lease<T> {
     // 心跳续约
     public void renew() {
         lastUpdateTimestamp = System.currentTimeMillis() + duration;
-
     }
 
     /**

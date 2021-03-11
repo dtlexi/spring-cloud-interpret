@@ -10,7 +10,44 @@ include 'eureka-interpretor:server'
 findProject(':eureka-interpretor:server')?.name = 'server'
 include 'eureka-interpretor:client'
 findProject(':eureka-interpretor:client')?.name = 'client'
-include 'ribbon'
 include 'eureka-interpretor:user'
 findProject(':eureka-interpretor:user')?.name = 'user'
+include 'eureka-interpretor:server1'
+findProject(':eureka-interpretor:server1')?.name = 'server1'
+
+include 'spring-cloud-netflix'
+include 'spring-cloud-netflix:spring-cloud-netflix-ribbon'
+
+include 'ribbon'
+include 'ribbon:ribbon'
+include 'ribbon:ribbon-core'
+include 'ribbon:ribbon-transport'
+include 'ribbon:ribbon-eureka'
+include 'ribbon:ribbon-test'
+include 'ribbon:ribbon-loadbalancer'
+include 'ribbon:ribbon-httpclient'
+
+
+include 'commons'
+include 'commons:spring-cloud-commons'
+
+include 'eureka-interpretor:order'
+findProject(':eureka-interpretor:order')?.name = 'order'
+include 'eureka-interpretor:order2'
+findProject(':eureka-interpretor:order2')?.name = 'order2'
+include 'eureka-interpretor:user2'
+findProject(':eureka-interpretor:user2')?.name = 'user2'
+
+
+
+
+include 'spring-cloud-openfeign'
+include 'spring-cloud-openfeign:spring-cloud-openfeign-core'
+include 'spring-cloud-openfeign:spring-cloud-openfeign-dependencies'
+include 'spring-cloud-openfeign:spring-cloud-starter-openfeign'
+
+include 'eureka-interpretor:gateway'
+findProject(':eureka-interpretor:gateway')?.name = 'gateway'
+include 'eureka-interpretor:spring-test'
+findProject(':eureka-interpretor:spring-test')?.name = 'spring-test'
 

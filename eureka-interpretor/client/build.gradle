@@ -12,11 +12,22 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile('org.springframework.boot:spring-boot-starter-web')
+
     compile project(":eureka:eureka-core")
     compile project(":eureka:eureka-client")
+
+//    compile project(":spring-cloud-netflix:spring-cloud-netflix-ribbon")
+
+
     compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
             {
                 exclude group: 'com.netflix.eureka', module: 'eureka-core'
                 exclude group: 'com.netflix.eureka', module: 'eureka-client'
+//                exclude group: 'org.springframework.cloud', module: 'spring-cloud-netflix-ribbon'
             }
+
+//    compile("org.springframework.cloud:spring-cloud-starter-openfeign")
+    compile project(":spring-cloud-openfeign:spring-cloud-openfeign-core")
+//    compile project(":spring-cloud-openfeign:spring-cloud-openfeign-dependencies")
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-hystrix')
 }
